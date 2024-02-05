@@ -1,7 +1,10 @@
 import { parse, resolve } from 'node:path'
 import { readdir } from 'node:fs/promises';
 
-import { printInvalidInputError, printOperationFailedError } from "../../utils/index.js"
+import { 
+  printInvalidInputError, 
+  printOperationFailedError 
+} from "../../utils/index.js"
 
 const goToDirectory = (appState, ...args) => {
   if (args.length !== 1) {
@@ -43,7 +46,7 @@ const printList = async (appState, ...args) => {
   }
 
   try {
-    const files = await readdir(appState.currentDirectory, { withFileTypes: true });
+    const files = await readdir(appState.currentDirectory, { withFileTypes: true })
 
     const mappedFiles = files.map((file) => ({ name: file.name, type: file.isFile() ? 'file' : 'directory' }))
 
@@ -56,7 +59,7 @@ const printList = async (appState, ...args) => {
 
     const filteredFiles = sortedDirectories.concat(sortedFiles)
 
-    console.table(filteredFiles, ['name', 'type']);
+    console.table(filteredFiles, ['name', 'type'])
   } catch {
     printOperationFailedError()
   }

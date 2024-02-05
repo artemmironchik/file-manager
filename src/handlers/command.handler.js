@@ -1,5 +1,6 @@
 import { directoryService } from "../services/directory/directory.service.js";
-import { printOperationFailedError } from "../utils/index.js";
+import { fileService } from "../services/file/file.service.js";
+import { printCurrentDirectory, printOperationFailedError } from "../utils/index.js";
 
 const handler = async (command, appState) => {
   const [commandName, ...args] = command.split(' ')
@@ -8,27 +9,39 @@ const handler = async (command, appState) => {
     case 'up':
       directoryService.goToUpperDirectory(appState, ...args)
 
-      break;
+      break
     case 'cd':
       directoryService.goToDirectory(appState, ...args)
 
-      break;
+      break
     case 'ls':
       await directoryService.printList(appState, ...args)
 
-      break;
+      break
     case 'cat':
-      break;
+      await fileService.readFile(...args)
+
+      break
     case 'add':
-      break;
+      await fileService.createFile(appState, ...args)
+
+      break
     case 'rn':
-      break;
+      await fileService.renameFile(...args)
+
+      break
     case 'cp':
-      break;
+      await fileService.copyFile(...args)
+
+      break
     case 'mv':
-      break;
+      await fileService.moveFile(...args)
+
+      break
     case 'rm':
-      break;
+      await fileService.deleteFile(...args)
+
+      break
     case 'os':
       break;
     case 'hash':
@@ -42,6 +55,8 @@ const handler = async (command, appState) => {
 
       break;
   }
+
+  printCurrentDirectory(appState.currentDirectory)
 }
 
 export default handler

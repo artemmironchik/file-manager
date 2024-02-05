@@ -14,6 +14,8 @@ const main = () => {
     output: process.stdout,
   })
 
+  process.chdir(appState.currentDirectory)
+
   printGreetingMessage(appState.username)
   printCurrentDirectory(appState.currentDirectory)
 
@@ -25,8 +27,6 @@ const main = () => {
     }
 
     await commandHandler(command, appState)
-
-    printCurrentDirectory(appState.currentDirectory)
   })
 
   rl.on('close', () => {
