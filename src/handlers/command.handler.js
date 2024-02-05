@@ -1,5 +1,6 @@
 import { directoryService } from "../services/directory/directory.service.js";
 import { fileService } from "../services/file/file.service.js";
+import { hashService } from "../services/hash/hash.service.js";
 import { osService } from "../services/os/os.service.js";
 import { printCurrentDirectory, printOperationFailedError } from "../utils/index.js";
 
@@ -48,7 +49,9 @@ const handler = async (command, appState) => {
 
       break
     case 'hash':
-      break;
+      await hashService.getHash(...args)
+
+      break
     case 'compress':
       break;
     case 'decompress':
