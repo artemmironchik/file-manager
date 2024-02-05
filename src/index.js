@@ -20,9 +20,13 @@ const main = () => {
   rl.on('line', async (command) => {
     if (command === '.exit') {
       rl.close()
+
+      return
     }
 
-    await commandHandler(command)
+    await commandHandler(command, appState)
+
+    printCurrentDirectory(appState.currentDirectory)
   })
 
   rl.on('close', () => {
