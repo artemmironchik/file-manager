@@ -2,6 +2,7 @@ import { directoryService } from "../services/directory/directory.service.js";
 import { fileService } from "../services/file/file.service.js";
 import { hashService } from "../services/hash/hash.service.js";
 import { osService } from "../services/os/os.service.js";
+import { zipService } from "../services/zip/zip.service.js";
 import { printCurrentDirectory, printOperationFailedError } from "../utils/index.js";
 
 const handler = async (command, appState) => {
@@ -53,9 +54,13 @@ const handler = async (command, appState) => {
 
       break
     case 'compress':
-      break;
+      await zipService.compress(...args)
+
+      break
     case 'decompress':
-      break;
+      await zipService.decompress(...args)
+
+      break
     default:
       printOperationFailedError()
 
